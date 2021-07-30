@@ -1,0 +1,3 @@
+Customer Name,Customer Address,Customer Phone,Order Status,Courier,Items
+Ben,"12 Main Street, London, WH1 2ER",07966378912,Preparing,3,"[1, 2, 4]"
+Lily,"9 Vestry Park, Manchester, E10 9PQ",07863789013,Preparing,2,"[2, 3]"
