@@ -1,0 +1,9 @@
+Cafe Mocha
+Frappuchino
+Iced Latte
+Affogato
+Flat White
+Irish Coffee
+Cafe Latte
+Americano
+Espresso
