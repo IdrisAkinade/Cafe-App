@@ -1,11 +1,11 @@
 import csv
 from functions import delete_item, save_list, update_dict
-from functions import read_csv_file, append_dict_into_csv_file, print_out_list,update_product
+from functions import read_csv_file, append_dict_into_csv_file, print_out_list,update_product,update_couriers
 
 products = []
 couriers = []
 orders = []
-order_status = ["Awaiting Payment","Preparing","Shipped","Delivered"]
+order_status_list = ["Awaiting Payment","Preparing","Shipped","Delivered"]
 
 
 
@@ -18,7 +18,7 @@ def welcome():
     print("\t\033[34m  #################### \033[0m ")
     print("\t\033[1;37;40m     A Cup Of Joy  \033[0;37;40 ")
     print("\t\033[34m  ####################  \033[0m")
-    enter = input("\n Press Enter To Use The App ")
+    enter = input("\n\t Press Enter To Use The App ")
     if  enter == "":
         main_menu()
     else:
@@ -79,9 +79,6 @@ def product_menu():
         \033[0m""")
     
     product_menu_option =  int(input("\n Please Select A Product Menu Options : "))
-    while product_menu_option < 0 or product_menu_option > 4:
-        print("\n\033[31m The Selection Provided Is Invalid.\033[0m")
-        product_menu_option = int(input("\n Please Select One Of The Five Options Given  "))
         
     if  product_menu_option == 0:
         main_menu()
@@ -112,6 +109,9 @@ def product_menu():
     elif product_menu_option == 4:   
         delete_item(products)
         
+    else:
+        print("\n\033[31m The Selection Provided Is Invalid.\033[0m")
+        product_menu_option = int(input("\n Please Select One Of The Five Options Given  "))
     
     again = input("\n\t\033[34m Is There Anything Else You Would Like To Do ? \033[0m \033[33m Yes\033[0m  or \033[31m No \033[0m") 
     again = again.lower()
@@ -165,7 +165,10 @@ def courier_menu():
 
     elif courier_menu_option == 3:
         print_out_list(couriers)
-        update_product()
+        courier_index_value = int(input("\n Please Enter The Index Value Of The Courier You Want To Update : "))
+        updated_courier = couriers[courier_index_value] 
+        update_dict(updated_courier) 
+        update_couriers()
         
     elif courier_menu_option == 4:
         delete_item(couriers)
@@ -192,7 +195,7 @@ def orders_menu():
         [2] - Making An Order
         [3] - Update Existing Order Status
         [4] - Update Existing Order
-        [5] - Delete Courier
+        [5] - Delete Order
         \033[0m""")
 
     orders_menu_option =  int(input("\n Please Select A Order Menu Options : "))
@@ -204,7 +207,9 @@ def orders_menu():
         main_menu()
         
     elif orders_menu_option == 1:
-        print(orders)
+        #[print(key,':',value) for key, value in orders.items()]
+        for order in orders:
+            print(order)
     
     elif orders_menu_option == 2:
         new_customer_name = input("\n Please Enter Your Name : ").title() # turns the first letters to capital letter
@@ -246,25 +251,26 @@ def orders_menu():
     elif orders_menu_option == 3:
         print_out_list(orders)
         order_index_value = int(input("\n Please Select A Order Index Value : "))
-        
-        print_out_list(order_status)
+        print_out_list(order_status_list)
         order_status_index_value = int(input("\n Please Select A Order Status Index Value : "))
-    
         orders[order_index_value]["Order Status"] = order_status_index_value
         print (order_status_index_value)
+        main_menu()
     
 
     elif orders_menu_option == 4:
-        print(list_to_dict(orders_list))
-        update_existing_order(orders_list)
+        print_out_list(orders)
+        order_index_value = int(input("\n Please Enter The Index Value Of The Product You Want To Update : "))
+        updated_order = orders[order_index_value] 
+        update_dict(updated_order)
         
         
         
     elif orders_menu_option == 5:
-        print(list_to_dict(orders_list))
+        print_out_list(orders)
         delete_order_value = int(input("\n Please Select A Order You Want To Delete : "))
-        del orders_list[delete_order_value]
-        print("\n  The New Order List Is : ",orders_list)
+        del orders[delete_order_value]
+        print("\n  The New Order List Is : ",orders)
         
     again = input("\n\t\033[34m Is There Anything Else You Would Like To Do ? \033[0m \033[33m Yes\033[0m  or \033[31m No \033[0m") 
     again = again.lower()
@@ -276,20 +282,5 @@ def orders_menu():
         print("")
         exit()        
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 welcome()
